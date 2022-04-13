@@ -21,13 +21,15 @@ import com.cookchef.dao.LoginSignUpDao;
 public class LoginDetails extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession httpSession = req.getSession();
 		String username = req.getParameter("username");
 		Base64.Encoder encoder = Base64.getEncoder();
 		String password = encoder.encodeToString(req.getParameter("password").getBytes());
-		boolean isExist = new LoginSignUpDao().validateUser(username, password);
-		HttpSession httpSession = req.getSession();
-		if (isExist) {
+		int userId = new LoginSignUpDao().validateUser(username, password);
+		System.out.println("User id: " + userId);
+		if (userId != -1) {
 			httpSession.setAttribute("username", username);
+			httpSession.setAttribute("user_id", userId);
 			resp.sendRedirect("/CookChef/recipe-list.jsp");
 		} else {
 			httpSession.invalidate();

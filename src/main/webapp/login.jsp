@@ -6,6 +6,8 @@
 -->
 <title>CookChef - Login</title>
 <head>
+<link rel="icon" type="image/x-icon"
+	href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh0AD2r-cwoXE--HSypYTElKmTSLA5ljsU5Nm-6atGZ5rJcYJrMpi3itomljA2kOTEK5s&usqp=CAU">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />

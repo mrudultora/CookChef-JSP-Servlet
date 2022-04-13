@@ -22,15 +22,17 @@ public class SignUpDetails extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession httpSession = req.getSession();
 		String username = req.getParameter("username");
 		String email = req.getParameter("email");
 		Base64.Encoder encoder = Base64.getEncoder();
 		String password = encoder.encodeToString(req.getParameter("password").getBytes());
-		boolean added = new LoginSignUpDao().signUpNewUser(username, email, password);
-		HttpSession httpSession = req.getSession();
-		if (added) {
+		int userId = new LoginSignUpDao().signUpNewUser(username, email, password);
+		System.out.println("User id: " + userId);
+		if (userId != -1) {
 			httpSession.setAttribute("username", username);
-			resp.sendRedirect("/recipe-list.jsp");
+			httpSession.setAttribute("user_id", userId);
+			resp.sendRedirect("/CookChef/recipe-list.jsp");
 		} else {
 			httpSession.invalidate();
 			req.setAttribute("error", "Username " + username + " / Email " + email + " exists. Try Again!");

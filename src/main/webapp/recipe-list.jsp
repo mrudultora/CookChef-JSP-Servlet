@@ -1,15 +1,20 @@
-<%@page import="com.cookchef.dao.AddRecipeDao"%>
+<%@page import="com.cookchef.dao.LoginSignUpDao"%>
+<%@page import="com.cookchef.dao.RecipeDao"%>
 <%@page import="com.cookchef.model.RecipeModel"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <!-- 
 	 @author Mrudul Tora (0801IT191049)
 	 @author Preetam Pratyush Pal (0801IT191059)
 -->
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CookChef</title>
+<link rel="icon" type="image/x-icon"
+	href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh0AD2r-cwoXE--HSypYTElKmTSLA5ljsU5Nm-6atGZ5rJcYJrMpi3itomljA2kOTEK5s&usqp=CAU">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -26,6 +31,23 @@ nav {
 	margin: 10px;
 	text-align: center;
 	background-color: #f1f1f1;
+}
+
+body {
+	margin: 0;
+	max-width: 100%;
+	padding: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
 }
 </style>
 <body>
@@ -67,9 +89,10 @@ nav {
 			</div>
 			<br>
 			<%
-			List<RecipeModel> list = new AddRecipeDao().getAllRecipes();
+			List<RecipeModel> list = new RecipeDao().getAllRecipes();
 			int x = 0;
 			for (RecipeModel rm : list) {
+				String username = new LoginSignUpDao().getUserName(rm.getUserId());
 				if (x % 3 == 0) {
 			%>
 			<div class="row">
@@ -77,18 +100,20 @@ nav {
 				}
 				%>
 				<div class="col-4" style="width: 270px;">
-					<div class="card" style="width: 270px;">
+					<a class="card" href="recipe-info.jsp?id=<%=rm.getId()%>"
+						style="width: 270px; border-width: 1px; border-color: #072A6C;">
 						<img src="images/<%=rm.getImageFileName()%>" alt="Food Image"
-							style="width: 260px; height: 240px;">
+						style="width: 260px; height: 240px;">
 						<div class="container">
-							<h4>
+							<h4 style="color: #072A6C;">
 								<b><%=rm.getTitle()%></b>
 							</h4>
 							<p>
-								Cooking Time:
-								<%=rm.getCookingTime() + " minutes"%></p>
+								Uploaded By:
+								<%=username%>
+							</p>
 						</div>
-					</div>
+					</a>
 				</div>
 				<%
 				x++;

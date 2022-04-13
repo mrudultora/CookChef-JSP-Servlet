@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.cookchef.model.RecipeModel;
+
 /**
  * @author Mrudul Tora (0801IT191049)
  * @author Preetam Pratyush Pal (0801IT191059)
@@ -18,6 +20,8 @@ public class LoginSignUpDao {
 	private final static String SQL_CHECK_IF_USER_EXISTS = "SELECT * FROM recipe_users where username = ? or email = ?";
 	private final static String SQL_ADD_USER = "INSERT INTO recipe_users(username, email, password) VALUES (?,?,?)";
 	private final static String SQL_FETCH_USER = "SELECT * FROM recipe_users where username = ? and password = ?";
+	private final static String SQL_GET_USER_ID = "SELECT user_id FROM recipe_users where username = ? and password = ?";
+	private final static String SQL_GET_USERNAME = "SELECT username FROM recipe_users where user_id = ?";
 
 	private Connection getConnection() {
 		Connection connection = null;
@@ -32,7 +36,7 @@ public class LoginSignUpDao {
 		return connection;
 	}
 
-	public boolean signUpNewUser(String username, String email, String password) {
+	public int signUpNewUser(String username, String email, String password) {
 		try {
 			Connection connection = getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(SQL_CHECK_IF_USER_EXISTS);
@@ -42,22 +46,27 @@ public class LoginSignUpDao {
 			rs.last();
 			int rowCount = rs.getRow();
 			if (rowCount > 0) {
-				return false;
+				return -1;
 			}
 			preparedStatement = connection.prepareStatement(SQL_ADD_USER);
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, email);
 			preparedStatement.setString(3, password);
 			int rows = preparedStatement.executeUpdate();
-			System.out.println("Rows: " + rows);
-			return true;
+			preparedStatement = connection.prepareStatement(SQL_GET_USER_ID);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password);
+			rs = preparedStatement.executeQuery();
+			rs.next();
+			int id = rs.getInt("user_id");
+			return id;
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
-		return false;
+		return -1;
 	}
 
-	public boolean validateUser(String username, String password) {
+	public int validateUser(String username, String password) {
 		try {
 			Connection connection = getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(SQL_FETCH_USER);
@@ -67,13 +76,33 @@ public class LoginSignUpDao {
 			rs.last();
 			int rowCount = rs.getRow();
 			if (rowCount > 0) {
-				return true;
+				preparedStatement = connection.prepareStatement(SQL_GET_USER_ID);
+				preparedStatement.setString(1, username);
+				preparedStatement.setString(2, password);
+				rs = preparedStatement.executeQuery();
+				rs.next();
+				int id = rs.getInt("user_id");
+				return id;
 			}
-			return false;
+			return -1;
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
-		return false;
+		return -1;
+	}
+
+	public String getUserName(int userId) {
+		try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(SQL_GET_USERNAME);
+			preparedStatement.setInt(1, userId);
+			ResultSet rs = preparedStatement.executeQuery();
+			rs.next();
+			return rs.getString("username");
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+		return "";
 	}
 
 	private void printSQLException(SQLException ex) {
@@ -91,4 +120,5 @@ public class LoginSignUpDao {
 			}
 		}
 	}
+
 }

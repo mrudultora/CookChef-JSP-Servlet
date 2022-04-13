@@ -11,18 +11,22 @@ public class RecipeModel {
 	private String recipe;
 	private String ingredients;
 	private String imageFileName;
+	private int userId;
 
-	public RecipeModel(String title, int cookingTime, String recipe, String ingredients, String imageFileName) {
+	public RecipeModel(String title, int cookingTime, String recipe, String ingredients, String imageFileName,
+			int userId) {
 		this.title = title;
+		this.userId = userId;
 		this.cookingTime = cookingTime;
 		this.recipe = recipe;
 		this.ingredients = ingredients;
 		this.imageFileName = imageFileName;
 	}
 
-	public RecipeModel(int id, String title, int cookingTime, String recipe, String ingredients,
-			String imageFileName) {
+	public RecipeModel(int id, String title, int cookingTime, String recipe, String ingredients, String imageFileName,
+			int userId) {
 		this.id = id;
+		this.userId = userId;
 		this.title = title;
 		this.cookingTime = cookingTime;
 		this.recipe = recipe;
@@ -76,6 +80,10 @@ public class RecipeModel {
 
 	public void setImageFileName(String imageFileName) {
 		this.imageFileName = imageFileName;
+	}
+
+	public int getUserId() {
+		return userId;
 	}
 
 }

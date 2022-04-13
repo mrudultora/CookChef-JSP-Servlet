@@ -6,6 +6,8 @@
 -->
 <title>CookChef - Sign Up</title>
 <head>
+<link rel="icon" type="image/x-icon"
+	href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh0AD2r-cwoXE--HSypYTElKmTSLA5ljsU5Nm-6atGZ5rJcYJrMpi3itomljA2kOTEK5s&usqp=CAU">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
@@ -102,18 +104,24 @@ input[type="submit"]:hover {
 </style>
 </head>
 <body>
+	<%
+	if (request.getSession().getAttribute("username") != null) {
+		response.sendRedirect("/CookChef/recipe-list.jsp");
+	}
+	%>
 	<main class="page">
 		<div class="center">
 			<h2>CookChef - Sign Up</h2>
-			<form action = "SignUpDetails" method = "post">
+			<form action="SignUpDetails" method="post">
 				<div class="txt_field">
-					<input type="text" required placeholder="Username" name = "username">
+					<input type="text" required placeholder="Username" name="username">
 				</div>
 				<div class="txt_field">
-					<input type="email" required placeholder="Email" name = "email">
+					<input type="email" required placeholder="Email" name="email">
 				</div>
 				<div class="txt_field">
-					<input type="password" required placeholder="Password" name = "password">
+					<input type="password" required placeholder="Password"
+						name="password">
 				</div>
 				<input type="submit" value="Sign Up">
 				<div class="signup_link">

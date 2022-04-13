@@ -1,15 +1,17 @@
+<%@page import="com.cookchef.dao.RecipeDao"%>
+<%@page import="com.cookchef.model.RecipeModel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<!DOCTYPE html>
 <!-- 
 	 @author Mrudul Tora (0801IT191049)
 	 @author Preetam Pratyush Pal (0801IT191059)
 -->
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title>CookChef - Add Recipe</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>CookChef - Update Recipe</title>
 <link rel="icon" type="image/x-icon"
 	href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh0AD2r-cwoXE--HSypYTElKmTSLA5ljsU5Nm-6atGZ5rJcYJrMpi3itomljA2kOTEK5s&usqp=CAU">
 <link rel="stylesheet"
@@ -55,6 +57,16 @@ input {
 	if (request.getSession().getAttribute("username") == null) {
 		response.sendRedirect("/CookChef/login.jsp");
 	}
+	int id = (int) request.getAttribute("id");
+	try {
+		RecipeModel recipeModel = new RecipeDao().getRecipe(id);
+		if (recipeModel == null) {
+			throw new Exception();
+		}
+		String ingredients = recipeModel.getIngredients();
+		String recipe = recipeModel.getRecipe();
+		recipe = recipe.replace("<br>", "\n");
+		ingredients = ingredients.replace("<br>", "\n");
 	%>
 	<header>
 		<nav class="navbar navbar-toggleable-md navbar-dark bg-faded">
@@ -84,29 +96,39 @@ input {
 		<div class="card"
 			style="background-color: white; border-radius: 10px;">
 			<div class="card-body">
-				<form action="AddDetails" method="post"
+				<form action="UpdateDetails" method="post"
 					enctype="multipart/form-data" accept-charset="ISO-8859-1">
 					<label><b>Title: </b></label><input type="text" name="title"
-						required style="width: 400px; border: 1px solid black;"><br>
-					<br> <label><b>Cooking Time: (in minutes)</b></label> <input
+						value="<%=recipeModel.getTitle()%>" required
+						style="width: 400px; border: 1px solid black;"><br> <br>
+					<label><b>Cooking Time: (in minutes)</b></label> <input
 						type="number" name="cooking-time"
-						style="width: 400px; border: 1px solid black;" required><br>
-					<br> <label><b>Recipe:</b></label>
+						style="width: 400px; border: 1px solid black;" required
+						value="<%=recipeModel.getCookingTime()%>"><br> <br>
+					<label><b>Recipe:</b></label>
 					<textarea name="recipe"
 						style="height: 200px; width: 400px; border: 1px solid black;"
-						required></textarea>
+						required> <%=recipe%></textarea>
 					<br> <br> <label><b>Ingredients:</b></label>
 					<textarea name="ingredients"
 						style="height: 150px; width: 400px; border: 1px solid black;"
-						required></textarea>
+						required><%=ingredients%></textarea>
 					<br> <br> <label><b>Select Image:</b></label> <input
 						type="file" name="image" accept="image/*" required><br>
 					<br> <input class="vertical-center" type="submit"
 						value="Submit" name="submit"
-						style="background: linear-gradient(120deg, black 20%, #072A6C 90%); color: white; width: 100px;">
+						style="background: linear-gradient(120deg, black 20%, #072A6C 90%); color: white; width: 100px;"><br>
+					<br> <input type="hidden" name="id" value="<%=id%>">
 				</form>
 			</div>
 		</div>
 	</div>
 </body>
+<%
+} catch (Exception e) {
+request.setAttribute("error", "No such recipe id exists. Try Again!");
+RequestDispatcher rd = request.getRequestDispatcher("/Error.jsp");
+rd.forward(request, response);
+}
+%>
 </html>
