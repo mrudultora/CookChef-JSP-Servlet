@@ -20,6 +20,15 @@
 	crossorigin="anonymous">
 </head>
 <style>
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: white;
+	text-align: center;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -122,6 +131,9 @@ input {
 				</form>
 			</div>
 		</div>
+	</div>
+	<div class="footer">
+		<p>©CookChef - Mrudul Tora and Preetam Pratyush Pal</p>
 	</div>
 </body>
 <%

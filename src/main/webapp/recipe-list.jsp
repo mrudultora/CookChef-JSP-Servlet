@@ -21,6 +21,15 @@
 	crossorigin="anonymous">
 </head>
 <style>
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: #072A6C;
+	text-align: center;
+}
+
 nav {
 	background: linear-gradient(120deg, black 10%, #072A6C 70%);
 }
@@ -125,6 +134,9 @@ a:hover {
 			}
 			%>
 		</div>
+	</div>
+	<div class="footer">
+		<p>©CookChef - Mrudul Tora and Preetam Pratyush Pal</p>
 	</div>
 </body>
 </html>

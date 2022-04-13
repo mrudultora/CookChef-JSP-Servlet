@@ -12,6 +12,15 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
 <style>
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: white;
+	text-align: center;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -130,6 +139,9 @@ input[type="submit"]:hover {
 			</form>
 		</div>
 	</main>
+	<div class="footer">
+		<p>©CookChef - Mrudul Tora and Preetam Pratyush Pal</p>
+	</div>
 </body>
 
 </html>

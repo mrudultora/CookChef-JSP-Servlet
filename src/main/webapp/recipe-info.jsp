@@ -12,6 +12,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style>
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: #072A6C;
+	text-align: center;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -110,7 +119,6 @@ try {
 		</nav>
 	</header>
 	<br>
-
 	<div class="card"
 		style="margin: 20px; border-width: 3px; border-color: #072A6C;">
 		<article style="padding: 15px;" charset="UTF-8">
@@ -140,6 +148,10 @@ try {
 			</p>
 			</p>
 		</article>
+	</div>
+
+	<div class="footer">
+		<p>©CookChef - Mrudul Tora and Preetam Pratyush Pal</p>
 	</div>
 </body>
 <%

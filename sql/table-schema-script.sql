@@ -9,7 +9,7 @@ CREATE TABLE `recipe_users` (
 );
 CREATE TABLE `recipe_table` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(20) DEFAULT NULL,
+  `title` varchar(40) DEFAULT NULL,
   `cooking_time` int DEFAULT NULL,
   `recipe` text,
   `ingredients` text,

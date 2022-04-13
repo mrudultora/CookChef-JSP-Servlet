@@ -14,6 +14,15 @@
 
 
 <style>
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: white;
+	text-align: center;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -114,7 +123,7 @@ input[type="submit"]:hover {
 	<main class="page">
 		<div class="center">
 			<h2>CookChef - Login</h2>
-			<form action = "LoginDetails" method = "post">
+			<form action="LoginDetails" method="post">
 				<div class="txt_field">
 					<input type="text" required placeholder="Username" name="username">
 				</div>
@@ -129,6 +138,9 @@ input[type="submit"]:hover {
 			</form>
 		</div>
 	</main>
+	<div class="footer">
+		<p>©CookChef - Mrudul Tora and Preetam Pratyush Pal</p>
+	</div>
 </body>
 
 </html>

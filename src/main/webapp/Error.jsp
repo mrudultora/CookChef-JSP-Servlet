@@ -17,6 +17,15 @@ h1 {
 	color: white;
 }
 
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: white;
+	text-align: center;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -35,5 +44,8 @@ h2 {
 		<h1>Error</h1>
 		<h2><%=request.getAttribute("error")%></h2>
 	</center>
+	<div class="footer">
+		<p>©CookChef - Mrudul Tora and Preetam Pratyush Pal</p>
+	</div>
 </body>
 </html>
