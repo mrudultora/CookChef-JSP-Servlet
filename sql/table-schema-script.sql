@@ -1,5 +1,5 @@
 CREATE DATABASE cookchef;
-use cookchef;
+USE cookchef;
 CREATE TABLE `recipe_users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(30) DEFAULT NULL,
